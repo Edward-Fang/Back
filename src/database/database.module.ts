@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { join } from 'path'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 @Module({
@@ -9,9 +8,10 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       host: 'localhost',
       port: 27017,
       database: 'blog',
-      entities: [join(__dirname, '**/entity/*.{ts,js}')],
-      useNewUrlParser: true,
-      synchronize: true
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      autoLoadEntities: true,
+      useNewUrlParser: true, // 使用新版mongo连接Url解析格式
+      synchronize: true //自动同步数据库生成entity
     })
   ]
 })

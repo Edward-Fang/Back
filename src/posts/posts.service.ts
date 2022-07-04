@@ -11,16 +11,16 @@ export class PostsService {
     return this.postsRepo.find()
   }
 
-  public findOne(id: string) {
-    return this.postsRepo.findOneById(id)
+  public findOne(id: any) {
+    return this.postsRepo.findOne(id)
   }
 
-  public create(posts: Partial<Posts>) {
-    return this.postsRepo.save(posts)
+  public create(goods: Partial<Posts>) {
+    return this.postsRepo.save(goods)
   }
 
-  public update(id: string, posts: Partial<Posts>) {
-    return this.postsRepo.update(id, posts)
+  public update(goods: Partial<Posts>) {
+    return this.postsRepo.update(goods.id, goods)
   }
 
   public delete(id: string) {

@@ -1,26 +1,26 @@
 import {
-  Entity,
   Column,
+  Entity,
   ObjectID,
   ObjectIdColumn,
   PrimaryGeneratedColumn
 } from 'typeorm'
 
 @Entity()
-export class Posts {
+export class Users {
   @PrimaryGeneratedColumn()
   @ObjectIdColumn()
   readonly id: ObjectID
 
-  @Column({ unique: true })
-  readonly name: string
+  @Column()
+  readonly username: string
 
   @Column()
-  readonly price: number
+  readonly password: string
 
   @Column()
-  readonly count: number
+  readonly createTime: Date
 
   @Column()
-  readonly remark: string
+  readonly updateTime: Date
 }

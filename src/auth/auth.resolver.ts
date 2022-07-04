@@ -1,4 +1,9 @@
-import { Resolver } from '@nestjs/graphql'
+import { Field, Resolver } from '@nestjs/graphql'
+import { AuthService } from './auth.service'
 
-@Resolver()
-export class AuthResolver {}
+@Resolver('auth')
+export class AuthResolver {
+  constructor(private readonly authService: AuthService) {}
+
+  // @Field(() => String)
+}

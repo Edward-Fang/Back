@@ -5,8 +5,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      autoSchemaFile: true, // 代码先行
       driver: ApolloDriver,
+      autoSchemaFile: true, // 代码先行
       sortSchema: true,
       debug: false,
       playground: true

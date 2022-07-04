@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { PostsResolver } from './posts.resolver'
-import { PostsService } from './posts.service'
 import { Posts } from './entity/post.entity'
+import { PostsService } from './posts.service'
+import { PostsResolver } from './posts.resolver'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Posts])],
