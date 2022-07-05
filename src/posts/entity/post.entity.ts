@@ -12,15 +12,27 @@ export class Posts {
   @ObjectIdColumn()
   readonly id: ObjectID
 
-  @Column({ unique: true })
-  readonly name: string
+  @Column()
+  readonly title: string
 
   @Column()
-  readonly price: number
+  readonly author: string
 
   @Column()
-  readonly count: number
+  readonly posterUrl: string
 
   @Column()
-  readonly remark: string
+  readonly content: string
+
+  @Column()
+  readonly tags: string
+
+  @Column()
+  readonly isPublic: boolean
+
+  @Column()
+  readonly createAt: Date
+
+  @Column()
+  readonly updateAt: Date
 }

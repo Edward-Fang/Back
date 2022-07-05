@@ -1,7 +1,6 @@
 import { Query, Mutation, Args, Resolver } from '@nestjs/graphql'
 import { PostsDTO, PostsCreateDTO, PostsUpdateDTO } from './dto/post.dto'
 import { PostsService } from './posts.service'
-import { awaitWrap } from '@/utils'
 
 @Resolver('posts')
 export class PostsResolver {
@@ -18,25 +17,17 @@ export class PostsResolver {
   }
 
   @Mutation(() => PostsDTO)
-  async create(@Args('posts') posts: PostsCreateDTO) {
-    return this.postsService.create({ ...posts })
+  async create(@Args('posts') post: PostsCreateDTO) {
+    return this.postsService.create(post)
   }
 
   @Mutation(() => PostsDTO)
-  async update(@Args('posts') posts: PostsUpdateDTO) {
-    const [err] = await awaitWrap(this.postsService.update(posts))
-    if (err) {
-      return posts
-    }
-    return this.postsService.findOne(posts.id)
+  async update(@Args('id') id: string, @Args('posts') post: PostsUpdateDTO) {
+    return this.postsService.update(id, post)
   }
 
   @Mutation(() => Boolean)
   async delete(@Args('id') id: string) {
-    const [err] = await awaitWrap(this.postsService.delete(id))
-    if (err) {
-      return false
-    }
-    return true
+    return this.postsService.delete(id)
   }
 }

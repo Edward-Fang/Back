@@ -3,26 +3,36 @@ import { ObjectType, Field, ID, InputType } from '@nestjs/graphql'
 export class PostsDTO {
   @Field(() => ID)
   readonly id: any
-  readonly name: string
-  readonly price?: number
-  readonly count?: number
-  readonly remark?: string
+  readonly title: string
+  readonly author: string
+  readonly posterUrl: string
+  readonly content: string
+  readonly tags: string
+  readonly isPublic: boolean
+  readonly createAt: Date
+  readonly updateAt: Date
 }
 
 @InputType()
 export class PostsCreateDTO {
-  readonly name: string
-  readonly price?: number
-  readonly count?: number
-  readonly remark?: string
+  readonly title: string
+  readonly author: string
+  readonly posterUrl: string
+  readonly content: string
+  readonly tags: string
+  readonly isPublic: boolean
+  readonly createAt: Date
+  readonly updateAt: Date
 }
 
 @InputType()
 export class PostsUpdateDTO {
-  @Field(() => ID)
-  readonly id: any
-  readonly name: string
-  readonly price?: number
-  readonly count?: number
-  readonly remark?: string
+  readonly title?: string
+  readonly author?: string
+  readonly posterUrl?: string
+  readonly content?: string
+  readonly tags?: string
+  readonly isPublic?: boolean
+  readonly createAt?: Date
+  readonly updateAt: Date
 }

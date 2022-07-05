@@ -1,29 +1,36 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { PostsCreateDTO, PostsUpdateDTO } from './dto/post.dto'
 import { Posts } from './entity/post.entity'
 
 @Injectable()
 export class PostsService {
-  constructor(@InjectRepository(Posts) public postsRepo: Repository<Posts>) {}
+  constructor(
+    @InjectRepository(Posts) private readonly postsRepo: Repository<Posts>
+  ) {}
 
-  public findAll() {
+  async findAll() {
     return this.postsRepo.find()
   }
 
-  public findOne(id: any) {
-    return this.postsRepo.findOne(id)
+  async findOne(id: any) {
+    const post = await this.postsRepo.findOne(id)
+    if (!post) throw new NotFoundException()
+    return post
   }
 
-  public create(goods: Partial<Posts>) {
-    return this.postsRepo.save(goods)
+  async create(dto: PostsCreateDTO) {
+    return this.postsRepo.save(dto)
   }
 
-  public update(goods: Partial<Posts>) {
-    return this.postsRepo.update(goods.id, goods)
+  async update(id, dto: PostsUpdateDTO) {
+    const post = await this.postsRepo.findOne(id)
+    if (!post) throw new NotFoundException()
+    return this.postsRepo.save({ ...post, ...dto })
   }
 
-  public delete(id: string) {
+  async delete(id: string) {
     return this.postsRepo.delete(id)
   }
 }
