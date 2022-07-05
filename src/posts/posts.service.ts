@@ -1,3 +1,4 @@
+import { PaginationQueryDto } from '@/common/dto/pagination-query.dto'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -11,8 +12,12 @@ export class PostsService {
     @InjectRepository(Posts) private readonly postsRepo: Repository<Posts>
   ) {}
 
-  async findAll() {
-    return this.postsRepo.find()
+  async findAll(pagination: PaginationQueryDto) {
+    const { limit, offset } = pagination
+    return this.postsRepo.find({
+      skip: offset,
+      take: limit
+    })
   }
 
   async findOne(id: any) {
@@ -21,25 +26,26 @@ export class PostsService {
     return post
   }
 
-  async create(dto: PostsCreateDTO) {
+  async create(createDTO: PostsCreateDTO) {
+    const dto = {
+      ...createDTO,
+      createAt: new Date(),
+      updateAt: new Date()
+    }
     return this.postsRepo.save(dto)
   }
 
-  async update(id, dto: PostsUpdateDTO) {
+  async update(id, updateDTO: PostsUpdateDTO) {
     const post = await this.postsRepo.findOne(id)
     if (!post) throw new NotFoundException()
-    return this.postsRepo.save({ ...post, ...dto })
+    return this.postsRepo.save({
+      ...post,
+      ...updateDTO,
+      updateAt: new Date()
+    })
   }
 
   async delete(id: string) {
-    // DeleteResult {
-    //   raw: { acknowledged: true, deletedCount: 1 },
-    //   affected: 1
-    // }
-    // DeleteResult {
-    //   raw: { acknowledged: true, deletedCount: 0 },
-    //   affected: 0
-    // }
     const { affected } = await this.postsRepo.delete(id)
     if (affected) return true
     return false

@@ -8,6 +8,4 @@ export class PostsCreateDTO {
   readonly content: string
   readonly tags: string
   readonly isPublic: boolean
-  readonly createAt: Date
-  readonly updateAt: Date
 }

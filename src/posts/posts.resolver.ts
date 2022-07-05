@@ -2,6 +2,7 @@ import { Query, Mutation, Args, Resolver } from '@nestjs/graphql'
 import { PostsDTO } from './dto/post.dto'
 import { PostsCreateDTO } from './dto/post-create.dto'
 import { PostsUpdateDTO } from './dto/post-update.dto'
+import { PaginationQueryDto } from '@/common/dto/pagination-query.dto'
 import { PostsService } from './posts.service'
 
 @Resolver('posts')
@@ -9,8 +10,8 @@ export class PostsResolver {
   constructor(private readonly postsService: PostsService) {}
 
   @Query(() => [PostsDTO])
-  async findAll() {
-    return this.postsService.findAll()
+  async findAll(@Args('pagination') pagination: PaginationQueryDto) {
+    return this.postsService.findAll(pagination)
   }
 
   @Query(() => PostsDTO)
