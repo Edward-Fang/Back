@@ -1,8 +1,7 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql'
-@ObjectType()
-export class PostsDTO {
-  @Field(() => ID)
-  readonly id: any
+import { InputType } from '@nestjs/graphql'
+
+@InputType()
+export class PostsCreateDTO {
   readonly title: string
   readonly author: string
   readonly posterUrl: string

@@ -19,7 +19,7 @@ export class Users {
   readonly password: string
 
   @Column()
-  readonly createTime: Date
+  readonly createAt: Date
 
   @Column()
   readonly updateTime: Date

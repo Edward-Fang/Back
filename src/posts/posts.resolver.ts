@@ -1,5 +1,7 @@
 import { Query, Mutation, Args, Resolver } from '@nestjs/graphql'
-import { PostsDTO, PostsCreateDTO, PostsUpdateDTO } from './dto/post.dto'
+import { PostsDTO } from './dto/post.dto'
+import { PostsCreateDTO } from './dto/post-create.dto'
+import { PostsUpdateDTO } from './dto/post-update.dto'
 import { PostsService } from './posts.service'
 
 @Resolver('posts')

@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { PostsCreateDTO, PostsUpdateDTO } from './dto/post.dto'
+import { PostsCreateDTO } from './dto/post-create.dto'
+import { PostsUpdateDTO } from './dto/post-update.dto'
 import { Posts } from './entity/post.entity'
 
 @Injectable()
@@ -31,6 +32,16 @@ export class PostsService {
   }
 
   async delete(id: string) {
-    return this.postsRepo.delete(id)
+    // DeleteResult {
+    //   raw: { acknowledged: true, deletedCount: 1 },
+    //   affected: 1
+    // }
+    // DeleteResult {
+    //   raw: { acknowledged: true, deletedCount: 0 },
+    //   affected: 0
+    // }
+    const { affected } = await this.postsRepo.delete(id)
+    if (affected) return true
+    return false
   }
 }
