@@ -1,14 +1,7 @@
-import {
-  Entity,
-  Column,
-  ObjectID,
-  ObjectIdColumn,
-  PrimaryGeneratedColumn
-} from 'typeorm'
+import { Entity, Column, ObjectID, ObjectIdColumn } from 'typeorm'
 
 @Entity()
 export class Posts {
-  @PrimaryGeneratedColumn()
   @ObjectIdColumn()
   readonly id: ObjectID
 
@@ -25,7 +18,7 @@ export class Posts {
   readonly content: string
 
   @Column()
-  readonly tags: string
+  readonly tag: string
 
   @Column()
   readonly isPublic: boolean

@@ -1,4 +1,4 @@
-import { Field, Resolver } from '@nestjs/graphql'
+import { Resolver } from '@nestjs/graphql'
 import { AuthService } from './auth.service'
 
 @Resolver('auth')

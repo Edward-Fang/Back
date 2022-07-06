@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app
     .useGlobalPipes(new ValidationPipe())
-    .useGlobalFilters(new HttpExceptionFilter())
+    // .useGlobalFilters(new HttpExceptionFilter())
     .useGlobalInterceptors(new TimeoutInterceptor())
   await app.listen(3000)
   console.log('服务已启动在http://localhost:3000')

@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       type: 'mongodb',
       host: 'localhost',
       port: 27017,
-      database: 'test',
+      database: 'blog',
       // entities: ['dist/**/*.entity{.ts,.js}'],
       entities: [__dirname + '**/entity/*.{ts,js}'],
       autoLoadEntities: true,

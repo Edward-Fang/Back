@@ -23,6 +23,7 @@ export class HttpExceptionFilter<T extends HttpException>
 
     response.status(status).json({
       ...error
+      // timestamp: new Date().toLocaleTimeString()
     })
   }
 }

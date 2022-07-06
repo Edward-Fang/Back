@@ -1,14 +1,7 @@
-import {
-  Column,
-  Entity,
-  ObjectID,
-  ObjectIdColumn,
-  PrimaryGeneratedColumn
-} from 'typeorm'
+import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm'
 
 @Entity()
-export class Users {
-  @PrimaryGeneratedColumn()
+export class Admin {
   @ObjectIdColumn()
   readonly id: ObjectID
 
@@ -19,8 +12,14 @@ export class Users {
   readonly password: string
 
   @Column()
+  readonly mobile: number
+
+  @Column()
+  readonly email: string
+
+  @Column()
   readonly createAt: Date
 
   @Column()
-  readonly updateTime: Date
+  readonly updateAt: Date
 }
