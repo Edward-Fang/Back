@@ -14,7 +14,7 @@ export class PostsDTO {
   readonly updateAt: Date
 }
 
-@ObjectType()
+@ObjectType({ isAbstract: true })
 @InputType()
 export class PostsCreateDTO {
   readonly title: string
@@ -25,6 +25,7 @@ export class PostsCreateDTO {
   readonly isPublic: boolean
 }
 
-@ObjectType()
 @InputType()
-export class PostsUpdateDTO extends PartialType(PostsCreateDTO) {}
+export class PostsUpdateDTO extends PartialType(PostsCreateDTO) {
+  readonly updateAuth: string
+}

@@ -5,14 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm'
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      host: 'localhost',
-      port: 27017,
-      database: 'blog',
-      // entities: ['dist/**/*.entity{.ts,.js}'],
+      url: 'mongodb://root:12345@114.55.33.114:27017/blog?authSource=admin',
       entities: [__dirname + '**/entity/*.{ts,js}'],
       autoLoadEntities: true,
       useNewUrlParser: true, // 使用新版mongo连接Url解析格式
-      synchronize: true //自动同步数据库生成entity
+      synchronize: true
     })
   ]
 })

@@ -28,4 +28,7 @@ export class Posts {
 
   @Column()
   readonly updateAt: Date
+
+  @Column()
+  readonly updateAuth?: string
 }
