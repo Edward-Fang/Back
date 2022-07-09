@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, InputType } from '@nestjs/graphql'
+import { ObjectType, Field, ID, InputType, PartialType } from '@nestjs/graphql'
 @ObjectType()
 export class AdminDTo {
   @Field(() => ID)
@@ -11,18 +11,15 @@ export class AdminDTo {
   readonly updateAt: Date
 }
 
-@ObjectType()
+@ObjectType({ isAbstract: true })
 @InputType()
 export class AdminLoginDTO {
   readonly username: string
   readonly password: string
 }
 
-@ObjectType()
 @InputType()
-export class AdminCreateDTO {
-  readonly username: string
-  readonly password: string
+export class AdminCreateDTO extends PartialType(AdminLoginDTO) {
   readonly mobile: number
   readonly email: string
 }
