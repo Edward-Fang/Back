@@ -1,6 +1,6 @@
 import { Query, Mutation, Args, Resolver } from '@nestjs/graphql'
 import { PostsDTO, PostsCreateDTO, PostsUpdateDTO } from './dto/post.dto'
-import { PaginationQueryDto } from '@/common/dto/pagination-query.dto'
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto'
 import { PostsService } from './posts.service'
 
 @Resolver('posts')

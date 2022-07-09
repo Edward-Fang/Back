@@ -14,6 +14,7 @@ export class PostsDTO {
   readonly updateAt: Date
 }
 
+@ObjectType()
 @InputType()
 export class PostsCreateDTO {
   readonly title: string
@@ -24,5 +25,6 @@ export class PostsCreateDTO {
   readonly isPublic: boolean
 }
 
+@ObjectType()
 @InputType()
 export class PostsUpdateDTO extends PartialType(PostsCreateDTO) {}

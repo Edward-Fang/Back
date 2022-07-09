@@ -11,12 +11,14 @@ export class AdminDTo {
   readonly updateAt: Date
 }
 
+@ObjectType()
 @InputType()
 export class AdminLoginDTO {
   readonly username: string
   readonly password: string
 }
 
+@ObjectType()
 @InputType()
 export class AdminCreateDTO {
   readonly username: string
