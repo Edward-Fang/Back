@@ -12,6 +12,7 @@ async function bootstrap() {
     .useGlobalPipes(new ValidationPipe())
     // .useGlobalFilters(new HttpExceptionFilter())
     .useGlobalInterceptors(new TimeoutInterceptor())
+  // .enableCors()
   await app.listen(5000)
   console.log('服务已启动在http://localhost:5000')
   console.log('GraphQL Playground 已启动在http://localhost:5000/graphql')

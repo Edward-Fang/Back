@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb://root:12345@114.55.33.114:27017/blog?authSource=admin',
+      url: 'mongodb://localhost:27017',
       entities: [__dirname + '**/entity/*.{ts,js}'],
       autoLoadEntities: true,
       useNewUrlParser: true, // 使用新版mongo连接Url解析格式
