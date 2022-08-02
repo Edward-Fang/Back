@@ -7,11 +7,12 @@ export class PostsDTO {
   readonly title: string
   readonly author: string
   readonly posterUrl: string
+  readonly introduction: string
   readonly content: string
   readonly tag: string
-  readonly isPublic: boolean
   readonly createAt: Date
   readonly updateAt: Date
+  readonly updateAuth?: string
 }
 
 @ObjectType({ isAbstract: true })
@@ -20,9 +21,9 @@ export class PostsCreateDTO {
   readonly title: string
   readonly author: string
   readonly posterUrl: string
+  readonly introduction: string
   readonly content: string
   readonly tag: string
-  readonly isPublic: boolean
 }
 
 @InputType()

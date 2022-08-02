@@ -20,7 +20,7 @@ export class PostsService {
   }
 
   async findPostsByTag(tag: string) {
-    return this.postsRepo.findOne({
+    return this.postsRepo.find({
       where: { tag }
     })
   }

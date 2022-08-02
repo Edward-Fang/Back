@@ -15,13 +15,13 @@ export class Posts {
   readonly posterUrl: string
 
   @Column()
+  readonly introduction: string
+
+  @Column()
   readonly content: string
 
   @Column()
   readonly tag: string
-
-  @Column()
-  readonly isPublic: boolean
 
   @Column()
   readonly createAt: Date
