@@ -1,5 +1,4 @@
 import { IsNotEmpty, IsOptional, Length } from 'class-validator'
-import { ApiProperty } from '@nestjs/swagger'
 
 export class AdminDTO {
   readonly id: any

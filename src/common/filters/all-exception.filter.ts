@@ -5,12 +5,13 @@ import {
   HttpException,
   HttpStatus
 } from '@nestjs/common'
-import { Response } from 'express'
+import { Request, Response } from 'express'
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()
+    const request = ctx.getRequest<Request>()
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
@@ -20,10 +21,10 @@ export class AllExceptionFilter implements ExceptionFilter {
       ? exception.message
       : `${status >= 500 ? 'Service Error' : 'Client Error'}`
     const errorResponse = {
-      statusCode: status,
-      data: { error: message },
-      message: '请求失败',
-      code: 400 // 自定义code
+      msg: '请求失败',
+      code: 400,
+      error: message,
+      url: request.url
     }
     // 设置返回的状态码、请求头、发送错误信息
     response.status(status)

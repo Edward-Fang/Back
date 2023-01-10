@@ -21,7 +21,7 @@ export class TransformInterceptor<T>
       map(data => ({
         data,
         code: 200,
-        message: '请求成功'
+        msg: '请求成功'
       }))
     )
   }

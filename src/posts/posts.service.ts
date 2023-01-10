@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { PostsCreateDTO, PostsUpdateDTO } from './dto/post.dto'
 import { Posts } from './entity/post.entity'
+import * as dayjs from 'dayjs'
 
 @Injectable()
 export class PostsService {
@@ -34,8 +35,8 @@ export class PostsService {
   async createPost(createDTO: PostsCreateDTO) {
     return this.postsRepo.save({
       ...createDTO,
-      createAt: new Date(),
-      updateAt: new Date()
+      createAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      updateAt: dayjs().format('YYYY-MM-DD HH:mm:ss')
     })
   }
 
@@ -45,7 +46,7 @@ export class PostsService {
     return this.postsRepo.save({
       ...post,
       ...updateDTO,
-      updateAt: new Date()
+      updateAt: dayjs().format('YYYY-MM-DD HH:mm:ss')
     })
   }
 

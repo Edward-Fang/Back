@@ -11,7 +11,7 @@ import { ApiTags } from '@nestjs/swagger'
 
 @ApiTags('admin')
 @UsePipes(ValidationPipe)
-@Controller()
+@Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
@@ -21,9 +21,7 @@ export class AdminController {
   }
 
   @Post('createAdmin')
-  async createAdmin(
-    @Body('createDto') createDto: AdminCreateDTO
-  ): Promise<AdminDTO> {
+  async createAdmin(@Body() createDto: AdminCreateDTO): Promise<AdminDTO> {
     return await this.adminService.createAdmin(createDto)
   }
 }

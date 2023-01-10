@@ -15,9 +15,9 @@ import { PaginationQueryDto } from '../common/dto/pagination-query.dto'
 import { PostsService } from './posts.service'
 import { ApiTags } from '@nestjs/swagger'
 
-@ApiTags('posts')
+@ApiTags('post')
 @UsePipes(ValidationPipe)
-@Controller('posts')
+@Controller('post')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
@@ -27,26 +27,23 @@ export class PostsController {
   }
 
   @Get('findByTag')
-  async findPostsByTag(@Param('tag') tag: string) {
+  async findPostsByTag(@Query('tag') tag: string) {
     return this.postsService.findPostsByTag(tag)
   }
 
-  @Get(':id')
+  @Get('findById/:id')
   async findOnePost(@Param('id') id: string) {
     return this.postsService.findOnePost(id)
   }
 
   @Post('createPost')
-  async createPost(@Body('posts') post: PostsCreateDTO) {
-    return this.postsService.createPost(post)
+  async createPost(@Body() createDto: PostsCreateDTO) {
+    return this.postsService.createPost(createDto)
   }
 
   @Patch('updatePost')
-  async updatePost(
-    @Query('id') id: string,
-    @Body('posts') post: PostsUpdateDTO
-  ) {
-    return this.postsService.updatePost(id, post)
+  async updatePost(@Query('id') id: string, @Body() updateDto: PostsUpdateDTO) {
+    return this.postsService.updatePost(id, updateDto)
   }
 
   @Delete(':id')

@@ -19,7 +19,7 @@ export class AdminService {
       throw new NotFoundException()
     }
     if (loginDto.password !== admin.password) {
-      return '用户名或密码错误'
+      throw new Error('用户名或密码错误')
     }
     return '登录成功'
   }
@@ -28,7 +28,8 @@ export class AdminService {
     const admin = await this.adminRepo.findOne({
       where: { username: createDto.username }
     })
-    if (!admin) {
+    if (admin) {
+      throw new Error('该用户名已存在')
     }
     return this.adminRepo.save({
       ...createDto,
