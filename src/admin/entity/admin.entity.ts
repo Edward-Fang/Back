@@ -12,14 +12,14 @@ export class Admin {
   readonly password: string
 
   @Column()
-  readonly mobile: number
+  readonly mobile: string
 
   @Column()
   readonly email: string
 
   @Column()
-  readonly createAt: Date
+  readonly createAt: string
 
   @Column()
-  readonly updateAt: Date
+  readonly updateAt: string
 }

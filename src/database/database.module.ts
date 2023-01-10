@@ -9,7 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       entities: [__dirname + '**/entity/*.{ts,js}'],
       autoLoadEntities: true,
       useNewUrlParser: true, // 使用新版mongo连接Url解析格式
-      synchronize: true
+      synchronize: true,
+      useUnifiedTopology: true
     })
   ]
 })

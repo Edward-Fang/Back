@@ -1,8 +1,11 @@
-import { ObjectType, InputType } from '@nestjs/graphql'
+import { IsOptional, IsPositive } from 'class-validator'
 
-@ObjectType()
-@InputType()
 export class PaginationQueryDto {
+  @IsPositive()
+  @IsOptional()
   limit: number
+
+  @IsPositive()
+  @IsOptional()
   offset: number
 }

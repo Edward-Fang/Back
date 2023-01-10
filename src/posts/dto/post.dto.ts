@@ -1,8 +1,7 @@
-import { Field, ID, ObjectType, InputType, PartialType } from '@nestjs/graphql'
+import { PartialType } from '@nestjs/swagger'
+import { IsString } from 'class-validator'
 
-@ObjectType()
 export class PostsDTO {
-  @Field(() => ID)
   readonly id: any
   readonly title: string
   readonly author: string
@@ -10,13 +9,11 @@ export class PostsDTO {
   readonly introduction: string
   readonly content: string
   readonly tag: string
-  readonly createAt: Date
-  readonly updateAt: Date
-  readonly updateAuth?: string
+  readonly createAt: string
+  readonly updateAt: string
+  readonly updateAuth: string
 }
 
-@ObjectType({ isAbstract: true })
-@InputType()
 export class PostsCreateDTO {
   readonly title: string
   readonly author: string
@@ -26,7 +23,6 @@ export class PostsCreateDTO {
   readonly tag: string
 }
 
-@InputType()
 export class PostsUpdateDTO extends PartialType(PostsCreateDTO) {
   readonly updateAuth: string
 }
