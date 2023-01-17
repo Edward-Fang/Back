@@ -12,8 +12,8 @@ export class PostsService {
     @InjectRepository(Posts) private readonly postsRepo: Repository<Posts>
   ) {}
 
-  async findAllPosts(pagination: PaginationQueryDto) {
-    const { limit, offset } = pagination
+  async findAllPosts(paginationDto: PaginationQueryDto) {
+    const { limit, offset } = paginationDto
     return this.postsRepo.find({
       skip: offset,
       take: limit

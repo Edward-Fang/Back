@@ -1,5 +1,3 @@
-import { PartialType } from '@nestjs/swagger'
-
 export class PostsDTO {
   readonly id: any
   readonly title: string
@@ -22,6 +20,6 @@ export class PostsCreateDTO {
   readonly tag: string
 }
 
-export class PostsUpdateDTO extends PartialType(PostsCreateDTO) {
+export class PostsUpdateDTO extends PostsCreateDTO {
   readonly updateAuth: string
 }

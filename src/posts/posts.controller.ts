@@ -13,17 +13,15 @@ import {
 import { PostsCreateDTO, PostsUpdateDTO } from './dto/post.dto'
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto'
 import { PostsService } from './posts.service'
-import { ApiTags } from '@nestjs/swagger'
 
-@ApiTags('post')
 @UsePipes(ValidationPipe)
 @Controller('post')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get('findAll')
-  async findAllPosts(@Query() pagination: PaginationQueryDto) {
-    return this.postsService.findAllPosts(pagination)
+  async findAllPosts(@Query() paginationDto: PaginationQueryDto) {
+    return this.postsService.findAllPosts(paginationDto)
   }
 
   @Get('findByTag')

@@ -1,40 +1,64 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { JwtService } from '@nestjs/jwt'
 import { AdminCreateDTO, AdminLoginDTO } from './dto/admin.dto'
 import { Admin } from './entity/admin.entity'
 import * as dayjs from 'dayjs'
+import * as argon2 from 'argon2'
 
 @Injectable()
 export class AdminService {
   constructor(
-    @InjectRepository(Admin) private readonly adminRepo: Repository<Admin>
+    @InjectRepository(Admin) private readonly adminRepo: Repository<Admin>,
+    private jwtService: JwtService
   ) {}
 
-  async login(loginDto: AdminLoginDTO) {
-    const admin = await this.adminRepo.findOne({
-      where: { username: loginDto.username }
-    })
-    if (!admin) {
-      throw new NotFoundException()
-    }
-    if (loginDto.password !== admin.password) {
-      throw new Error('用户名或密码错误')
-    }
-    return '登录成功'
-  }
-
-  async createAdmin(createDto: AdminCreateDTO) {
+  async register(createDto: AdminCreateDTO) {
     const admin = await this.adminRepo.findOne({
       where: { username: createDto.username }
     })
     if (admin) {
       throw new Error('该用户名已存在')
     }
-    return this.adminRepo.save({
-      ...createDto,
+
+    //加密用户密码
+    const password = await argon2.hash(createDto.password)
+    await this.adminRepo.save({
+      username: createDto.username,
+      password,
       createAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       updateAt: dayjs().format('YYYY-MM-DD HH:mm:ss')
     })
+    return true
+  }
+
+  async login({ username, password }: AdminLoginDTO) {
+    const user = await this.findOne(username)
+    const psMatch = await argon2.verify(user.password, password)
+    if (!psMatch) throw new BadRequestException('密码输入错误')
+    return this.token(user)
+  }
+
+  async findOne(username: string) {
+    const user = await this.adminRepo.findOne({
+      where: { username }
+    })
+    if (!user) throw new BadRequestException('用户不存在')
+    return user
+  }
+
+  token({ username, id }: Admin) {
+    return {
+      access_token: this.jwtService.sign(
+        {
+          username,
+          id
+        },
+        {
+          secret: '' + process.env.TokenSecret
+        }
+      )
+    }
   }
 }
