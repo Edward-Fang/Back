@@ -33,10 +33,8 @@ export class AdminService {
     return true
   }
 
-  async login({ username, password }: AdminLoginDTO) {
+  async login({ username }: AdminLoginDTO) {
     const user = await this.findOne(username)
-    const psMatch = await argon2.verify(user.password, password)
-    if (!psMatch) throw new BadRequestException('密码输入错误')
     return this.token(user)
   }
 
@@ -50,7 +48,7 @@ export class AdminService {
 
   token({ username, id }: Admin) {
     return {
-      access_token: this.jwtService.sign(
+      token: this.jwtService.sign(
         {
           username,
           id

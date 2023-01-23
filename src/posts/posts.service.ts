@@ -12,12 +12,15 @@ export class PostsService {
     @InjectRepository(Posts) private readonly postsRepo: Repository<Posts>
   ) {}
 
-  async findAllPosts(paginationDto: PaginationQueryDto) {
-    const { limit, offset } = paginationDto
+  findAll({ limit, offset }: PaginationQueryDto) {
     return this.postsRepo.find({
-      skip: offset,
-      take: limit
+      skip: offset * limit,
+      take: Number(limit)
     })
+  }
+
+  async findAllPosts(paginationDto: PaginationQueryDto) {
+    return await this.findAll(paginationDto)
   }
 
   async findPostsByTag(tag: string) {
@@ -32,12 +35,23 @@ export class PostsService {
     return post
   }
 
+  async adminFindAll(paginationDto: PaginationQueryDto) {
+    const list = await this.findAll(paginationDto)
+    list.forEach(e => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { content, posterUrl, ...result } = e
+      return result
+    })
+    return list
+  }
+
   async createPost(createDTO: PostsCreateDTO) {
-    return this.postsRepo.save({
+    await this.postsRepo.save({
       ...createDTO,
       createAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       updateAt: dayjs().format('YYYY-MM-DD HH:mm:ss')
     })
+    return true
   }
 
   async updatePost(id, updateDTO: PostsUpdateDTO) {

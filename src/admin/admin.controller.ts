@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Req,
   UseGuards,
@@ -8,7 +9,7 @@ import {
   ValidationPipe
 } from '@nestjs/common'
 import { Request } from 'express'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { Auth } from '../common/decorator/auth.decorator'
 import { LocalAuthGuard } from '../auth/guards/local-auth.guard'
 import { AdminService } from './admin.service'
 import { AdminLoginDTO, AdminCreateDTO } from './dto/admin.dto'
@@ -30,8 +31,8 @@ export class AdminController {
   }
 
   // 查询个人信息
-  @UseGuards(JwtAuthGuard)
-  @Post('profile')
+  @Auth()
+  @Get('profile')
   // 使用Passport后，会将解析后的token信息挂载到req.user上
   profile(@Req() req: Request) {
     return req.user

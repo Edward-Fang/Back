@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { AdminService } from '../admin/admin.service'
 import { AdminLoginDTO } from '../admin/dto/admin.dto'
 import * as argon2 from 'argon2'
@@ -10,7 +10,7 @@ export class AuthService {
   async validateUser({ username, password }: AdminLoginDTO): Promise<any> {
     const user = await this.adminService.findOne(username)
     const psMatch = await argon2.verify(user.password, password)
-    if (!psMatch) return null
+    if (!psMatch) throw new BadRequestException('密码输入错误')
     return user
   }
 }

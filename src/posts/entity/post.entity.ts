@@ -24,10 +24,10 @@ export class Posts {
   readonly tag: string
 
   @Column()
-  readonly createAt: Date
+  readonly createAt: string
 
   @Column()
-  readonly updateAt: Date
+  readonly updateAt: string
 
   @Column()
   readonly updateAuth?: string
